@@ -3,25 +3,25 @@
   <div class="article-meta">
     <span>[<%= @article.created_at.strftime("%Y-%m-%d %H:%M:%S") %>]</span>
     <span>Views: <%= @article.views %></span>
+    <span>Comments: <%= @article.comments.count %></span>
   </div>
   <div class="article-body">
-    <%=@article.body %>
+    <%= @article.body %>
   </div>
 </article>
 
 <section class="comments-section">
- <h2>Comments (<%= @article.comments.count %>)</h2>
+  <h2>Comments (<%= @article.comments.count %>)</h2>
+  <div id="comments">
+    <% if @article.comments.any? %>
+      <%= render @article.comments.order(created_at: :desc) %>
+    <% else %>
+      <p class="no-comments">No comments yet. Be the first to comment!</p>
+    <% end %>
+  </div>
 
-  <% if @article.comments.any? %>
-    <ul class="comments-list">
-      <%= render @article.comments %>
-    </ul>
-  <% else %>
-    <p class="no-comments">/* No comments yet. */</p>
-  <% end %>
-
-  <h3>// Add a comment</h3>
-  <%= render 'comments/form' %>
+  <h2>Add a comment:</h2>
+  <%= render 'comments/form', article: @article %>
 </section>
 
 <%= link_to '< Back to Articles', articles_path, class: "back-link" %>
