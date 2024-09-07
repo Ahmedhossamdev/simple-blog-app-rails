@@ -11,7 +11,7 @@
 
   <div class="form-group">
     <%= f.label :status %>
-    <%= f.select :status, Comment::VALID_STATUSES, selected: "public" %>
+    <%= f.select :status, Comment::VALID_STATUSES, { selected: "public" }, { class: "status-select" } %>
   </div>
 
   <%= f.submit "Submit", class: "submit-comment" %>
@@ -25,13 +25,23 @@
     margin-bottom: 10px;
   }
   .form-group input[type="text"],
-  .form-group textarea {
+  .form-group textarea,
+  .form-group select.status-select {
     width: 100%;
     padding: 8px;
     background-color: #0a0a0a;
     border: 1px solid #00ff00;
     color: #00ff00;
     font-family: 'Source Code Pro', monospace;
+  }
+  .form-group select.status-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300ff00' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    padding-right: 30px;
   }
   .submit-comment {
     background-color: #00ff00;
