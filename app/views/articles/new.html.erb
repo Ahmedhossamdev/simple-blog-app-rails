@@ -1,5 +1,38 @@
-<h1>// New Post</h1>
+<div class="page-container">
+  <h1 class="page-title">// New Post</h1>
 
-<%= render 'form', article: @article %>
+  <%= render 'form', article: @article %>
 
-<%= link_to '< Back', articles_path, class: 'back-link' %>
+  <%= link_to '< Back', articles_path, class: "back-link" %>
+</div>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .page-title {
+    text-align: center;
+    color: #00ff00;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    font-weight: 700;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #00ff00;
+    text-decoration: none;
+    border: 1px solid #00ff00;
+    padding: 10px 15px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .back-link:hover {
+    background-color: #00ff00;
+    color: #0a0a0a;
+  }
+</style>
