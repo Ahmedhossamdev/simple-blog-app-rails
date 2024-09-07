@@ -13,25 +13,28 @@
 
     <div class="field">
       <%= form.label :title %>
-      <%= form.text_field :title %>
+      <%= form.text_field :title, class: 'form-input' %>
     </div>
 
     <div class="field">
       <%= form.label :body %>
-      <%= form.text_area :body %>
+      <%= form.text_area :body, class: 'form-input', rows: 10 %>
     </div>
 
     <div class="actions">
-      <%= form.submit %>
+      <%= form.submit class: 'submit-button' %>
     </div>
   <% end %>
 </div>
 
 <style>
-  .article-form {
+  .form-container {
     background-color: #1a1a1a;
     padding: 20px;
     border: 1px solid #00ff00;
+  }
+  .article-form {
+    color: #00ff00;
   }
   .field {
     margin-bottom: 15px;
@@ -41,8 +44,7 @@
     margin-bottom: 5px;
     color: #00ff00;
   }
-  .field input[type="text"],
-  .field textarea {
+  .form-input {
     width: 100%;
     padding: 8px;
     background-color: #0a0a0a;
@@ -50,22 +52,39 @@
     color: #00ff00;
     font-family: 'Source Code Pro', monospace;
   }
-  .field textarea {
-    height: 200px;
+  .form-input:focus {
+    outline: none;
+    box-shadow: 0 0 5px #00ff00;
   }
-  .actions input[type="submit"] {
+  textarea.form-input {
+    min-height: 150px;
+    resize: vertical;
+  }
+  .submit-button {
     background-color: #00ff00;
     color: #0a0a0a;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
     font-family: 'Source Code Pro', monospace;
+    font-size: 1em;
+    transition: background-color 0.3s;
   }
-  .actions input[type="submit"]:hover {
+  .submit-button:hover {
     background-color: #00cc00;
   }
   #error_explanation {
-    color: #ff0000;
+    color: #ff3333;
     margin-bottom: 20px;
+    background-color: #1a1a1a;
+    border: 1px solid #ff3333;
+    padding: 10px;
+  }
+  #error_explanation h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  #error_explanation ul {
+    margin-left: 20px;
   }
 </style>
