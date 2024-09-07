@@ -1,18 +1,36 @@
 class ArticlesController < ApplicationController
-  protect_from_forgery with: :null_session, only: [ :create ] # Be cautious with this in production!
+  protect_from_forgery with: :null_session, only: [ :create, :update, :destroy ]
+  before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @page = params[:page].to_i || 1
-    @per_page = 4
+    @page = params[:page].to_i.positive? ? params[:page].to_i : 1
+    @per_page = params[:limit].to_i.positive? ? params[:limit].to_i : 10
     @total_articles = Article.count
     @total_pages = (@total_articles.to_f / @per_page).ceil
     @articles = Article.order(created_at: :desc).offset((@page - 1) * @per_page).limit(@per_page)
+
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: {
+          articles: @articles,
+          meta: {
+            current_page: @page,
+            per_page: @per_page,
+            total_pages: @total_pages,
+            total_articles: @total_articles
+          }
+        }
+      }
+    end
   end
 
-
   def show
-    @article = Article.find(params[:id])
     @article.increment!(:views)
+    respond_to do |format|
+      format.html
+      format.json { render json: @article }
+    end
   end
 
   def new
@@ -34,28 +52,34 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def update
-    @article = Article.find(params[:id])
-
-    if @article.update(article_params)
-      redirect_to article_path(@article)
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @article.update(article_params)
+        format.html { redirect_to @article, notice: "Article was successfully updated." }
+        format.json { render json: @article, status: :ok }
+      else
+        format.html { render :edit }
+        format.json { render json: @article.errors, status: :unprocessable_entity }
+      end
     end
   end
 
-
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
-
-    redirect_to root_path, status: :see_other
+    respond_to do |format|
+      format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
   def article_params
     params.require(:article).permit(:title, :body)
   end
