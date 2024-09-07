@@ -1,126 +1,83 @@
-<h1 class="blog-title">Articles</h1>
+<h1 class="blog-title">// Hacker Blog Posts</h1>
 
-<ul class="article-list">
+<div class="article-grid">
   <% @articles.each do |article| %>
-    <li class="article-item">
-      <div class="article-content">
-        <strong class="article-title"><%= article.title %></strong>
-        <p class="article-meta">
-          Published on: <%= article.created_at.strftime("%B %d, %Y") %> |
-          Updated on: <%= article.updated_at.strftime("%B %d, %Y") %>
-        </p>
-        <p class="article-excerpt"><%= truncate(article.body, length: 100) %></p>
-        <a href="<%= article_path(article) %>" class="read-more">Read More</a>
+    <div class="article-card">
+      <h2><%= link_to article.title, article_path(article) %></h2>
+      <div class="article-meta">
+        <span>[<%= article.created_at.strftime("%Y-%m-%d %H:%M:%S") %>]</span>
+        <span>Views: <%= article.views %></span>
       </div>
-      <div class="article-views">
-        <i class="fas fa-eye"></i>
-        <span class="views-count"><%= article.views %></span>
+      <p class="article-excerpt"><%= truncate(article.body, length: 100) %></p>
+      <div class="article-actions">
+        <%= link_to '> Read More', article_path(article), class: 'read-more' %>
+        <%= link_to '> Edit', edit_article_path(article), class: 'edit' %>
+        <%= link_to '> Delete', article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete' %>
       </div>
-    </li>
+    </div>
   <% end %>
-</ul>
+</div>
 
-<%= link_to new_article_path, class: "new-article-button" do %>
-  <i class="fas fa-plus"></i>
-<% end %>
+<%= link_to '+ New Post', new_article_path, class: 'new-post-link' %>
 
 <style>
   .blog-title {
-    text-align: center;
-    font-size: 2.5em;
-    color: #2c3e50;
+    color: #00ff00;
+    font-size: 2em;
     margin-bottom: 20px;
+    border-bottom: 1px solid #00ff00;
+    padding-bottom: 10px;
   }
-  .article-list {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  .article-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
   }
-  .article-item {
-    width: 300px;
-    border: 1px solid #eaeaea;
-    border-radius: 8px;
-    padding: 20px;h
-    background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  .article-card {
+    background-color: #1a1a1a;
+    border: 1px solid #00ff00;
+    padding: 15px;
+    transition: transform 0.3s ease;
   }
-  .article-item:hover {
+  .article-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
-  .article-content {
-    flex-grow: 1;
+  .article-card h2 {
+    margin-top: 0;
   }
-  .article-title {
-    font-size: 1.5em;
-    color: #2980b9;
-    display: block;
-    margin-bottom: 10px;
+  .article-card h2 a {
+    color: #00ff00;
+    text-decoration: none;
   }
   .article-meta {
-    font-size: 0.8em;
-    color: #7f8c8d;
+    color: #888;
+    font-size: 0.9em;
     margin-bottom: 10px;
   }
   .article-excerpt {
+    color: #00ff00;
     font-size: 0.9em;
-    color: #34495e;
     margin-bottom: 15px;
   }
-  .read-more {
-    display: inline-block;
-    padding: 8px 12px;
-    background-color: #2980b9;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    font-size: 0.9em;
-  }
-  .read-more:hover {
-    background-color: #3498db;
-  }
-  .article-views {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    color: #7f8c8d;
-    font-size: 0.9em;
+  .article-actions {
     margin-top: 15px;
   }
-  .fas {
-    margin-right: 5px;
-  }
-  .views-count {
-    font-weight: bold;
-  }
-  .new-article-button {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background-color: #27ae60;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .article-actions a {
+    color: #00ff00;
     text-decoration: none;
-    font-size: 24px;
-    box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
-    transition: all 0.3s ease;
+    margin-right: 10px;
   }
-  .new-article-button:hover {
-    background-color: #2ecc71;
-    transform: scale(1.1);
-    box-shadow: 0 6px 8px rgba(39, 174, 96, 0.3);
+  .new-post-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #00ff00;
+    text-decoration: none;
+    border: 1px solid #00ff00;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+  }
+  .new-post-link:hover {
+    background-color: #00ff00;
+    color: #0a0a0a;
   }
 </style>

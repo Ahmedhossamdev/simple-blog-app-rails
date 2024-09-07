@@ -1,0 +1,21 @@
+<li class="comment">
+  <p class="comment-content"><%= comment.body %></p>
+  <p class="comment-meta">
+    // by <%= comment.commenter %> | <%= time_ago_in_words(comment.created_at) %> ago
+  </p>
+</li>
+
+<style>
+  .comment {
+    border: 1px solid #333;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .comment-content {
+    color: #00ff00;
+  }
+  .comment-meta {
+    color: #888;
+    font-size: 0.9em;
+  }
+</style>

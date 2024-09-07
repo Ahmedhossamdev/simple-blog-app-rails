@@ -1,97 +1,71 @@
 <div class="form-container">
-  <%= form_with model: article, class: "article-form", local: true do |form| %>
-    <div class="form-group">
-      <%= form.label :title, class: "form-label" %>
-      <%= form.text_field :title, class: "form-input", placeholder: "Enter article title" %>
-      <% article.errors.full_messages_for(:title).each do |message| %>
-        <div class="error-message"><%= message %></div>
-      <% end %>
+  <%= form_with model: article, local: true, class: 'article-form' do |form| %>
+    <% if article.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
+        <ul>
+          <% article.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
     </div>
 
-    <div class="form-group">
-      <%= form.label :body, class: "form-label" %>
-      <%= form.text_area :body, class: "form-input form-textarea", placeholder: "Write your article here", rows: 10 %>
-      <% article.errors.full_messages_for(:body).each do |message| %>
-        <div class="error-message"><%= message %></div>
-      <% end %>
+    <div class="field">
+      <%= form.label :body %>
+      <%= form.text_area :body %>
     </div>
 
-    <div class="form-group">
-      <%= form.submit class: "submit-button" %>
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
 </div>
 
 <style>
-  .form-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 30px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-
   .article-form {
-    display: flex;
-    flex-direction: column;
+    background-color: #1a1a1a;
+    padding: 20px;
+    border: 1px solid #00ff00;
   }
-
-  .form-group {
-    margin-bottom: 25px;
+  .field {
+    margin-bottom: 15px;
   }
-
-  .form-label {
+  .field label {
     display: block;
-    margin-bottom: 8px;
-    color: #2c3e50;
-    font-weight: 600;
-    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: #00ff00;
   }
-
-  .form-input {
-    width: 95%;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    justify-content: center;
+  .field input[type="text"],
+  .field textarea {
+    width: 100%;
+    padding: 8px;
+    background-color: #0a0a0a;
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    font-family: 'Source Code Pro', monospace;
   }
-
-  .form-input:focus {
-    outline: none;
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  .field textarea {
+    height: 200px;
   }
-
-  .form-textarea {
-    resize: vertical;
-    min-height: 200px;
-  }
-
-  .error-message {
-    color: #e74c3c;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-
-  .submit-button {
-    background-color: #2980b9;
-    color: white;
-    padding: 12px 25px;
+  .actions input[type="submit"] {
+    background-color: #00ff00;
+    color: #0a0a0a;
     border: none;
-    border-radius: 8px;
+    padding: 10px 20px;
     cursor: pointer;
-    font-size: 18px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    align-self: flex-start;
+    font-family: 'Source Code Pro', monospace;
   }
-
-  .submit-button:hover {
-    background-color: #3498db;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  .actions input[type="submit"]:hover {
+    background-color: #00cc00;
+  }
+  #error_explanation {
+    color: #ff0000;
+    margin-bottom: 20px;
   }
 </style>

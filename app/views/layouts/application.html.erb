@@ -1,24 +1,59 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Blog" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Hacker Blog</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <nav>
+        <%= link_to '> Hacker Blog', root_path, class: 'logo' %>
+        <%= link_to '+ New Post', new_article_path %>
+      </nav>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <style>
+      body {
+        font-family: 'Source Code Pro', monospace;
+        background-color: #0a0a0a;
+        color: #00ff00;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #1a1a1a;
+        padding: 10px 0;
+      }
+      nav {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+      }
+      nav a {
+        color: #00ff00;
+        text-decoration: none;
+      }
+      .logo {
+        font-weight: bold;
+      }
+      main {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #1a1a1a;
+        border: 1px solid #00ff00;
+      }
+    </style>
   </body>
 </html>
