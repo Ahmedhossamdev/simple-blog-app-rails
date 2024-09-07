@@ -69,6 +69,7 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      # Ensure bin/rails has correct permissions
       - name: Make bin/rails executable
         run: chmod +x bin/rails
 
