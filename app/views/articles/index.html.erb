@@ -10,9 +10,9 @@
       </div>
       <p class="article-excerpt"><%= truncate(article.body, length: 100) %></p>
       <div class="article-actions">
-        <%= link_to '> Read More', article_path(article), class: 'read-more' %>
-        <%= link_to '> Edit', edit_article_path(article), class: 'edit' %>
-        <%= link_to '> Delete', article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete' %>
+        <%= link_to '> Read More', article_path(article), class: 'action-link' %>
+        <%= link_to '> Edit', edit_article_path(article), class: 'action-link' %>
+        <%= button_to '> Delete', article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link delete-button' %>
       </div>
     </div>
   <% end %>
@@ -61,11 +61,24 @@
   }
   .article-actions {
     margin-top: 15px;
+    display: flex;
+    gap: 10px;
   }
-  .article-actions a {
+  .action-link {
     color: #00ff00;
     text-decoration: none;
-    margin-right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1em;
+    padding: 0;
+  }
+  .action-link:hover {
+    text-decoration: underline;
+  }
+  .delete-button {
+    color: #ff3333;
   }
   .new-post-link {
     display: inline-block;
