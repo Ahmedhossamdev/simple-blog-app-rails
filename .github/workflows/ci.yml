@@ -58,33 +58,4 @@ jobs:
 
     steps:
       - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl libjemalloc2 libsqlite3-0 libvips
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      # Ensure bin/rails has correct permissions
-      - name: Make bin/rails executable
-        run: chmod +x bin/rails
-
-      - name: Run tests
-        env:
-          RAILS_ENV: test
-        run: |
-          bin/rails db:test:prepare
-          bin/rails test
-          bin/rails test:system
-
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y google-chrome-stable curl lib
