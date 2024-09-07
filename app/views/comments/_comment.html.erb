@@ -1,9 +1,10 @@
-<li class="comment">
-  <p class="comment-content"><%= comment.body %></p>
+<div id="<%= dom_id(comment) %>" class="comment">
+  <p class="comment-content"><strong><%= comment.commenter %>:</strong> <%= comment.body %></p>
   <p class="comment-meta">
-    // by <%= comment.commenter %> | <%= time_ago_in_words(comment.created_at) %> ago
+    Posted on:
+    <%= comment.created_at&.strftime("%Y-%m-%d %H:%M:%S") || "Unknown date" %>
   </p>
-</li>
+</div>
 
 <style>
   .comment {
