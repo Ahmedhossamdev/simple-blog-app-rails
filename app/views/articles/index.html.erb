@@ -1,68 +1,83 @@
-<h1 class="blog-title">// Hacker Blog Posts</h1>
+<h1 class="blog-title">// Hacker Blog</h1>
 
-<div class="article-grid">
+<div class="article-list">
   <% @articles.each do |article| %>
     <div class="article-card">
-      <h2><%= link_to article.title, article_path(article) %></h2>
+      <h2 class="article-title"><%= link_to article.title, article_path(article) %></h2>
       <div class="article-meta">
-        <span>[<%= article.created_at.strftime("%Y-%m-%d %H:%M:%S") %>]</span>
-        <span>Views: <%= article.views %></span>
+        <span class="date">[<%= article.created_at.strftime("%Y-%m-%d") %>]</span>
+        <span class="views">Views: <%= article.views %></span>
       </div>
-      <p class="article-excerpt"><%= truncate(article.body, length: 100) %></p>
+      <p class="article-excerpt"><%= truncate(article.body, length: 150) %></p>
       <div class="article-actions">
-        <%= link_to '> Read More', article_path(article), class: 'action-link' %>
-        <%= link_to '> Edit', edit_article_path(article), class: 'action-link' %>
+        <%= link_to '> Read More', article_path(article), class: 'action-link read-more' %>
+        <%= link_to '> Edit', edit_article_path(article), class: 'action-link edit' %>
         <%= button_to '> Delete', article_path(article), method: :delete, data: { confirm: 'Are you sure?' }, class: 'action-link delete-button' %>
       </div>
     </div>
   <% end %>
 </div>
 
-<%= link_to '+ New Post', new_article_path, class: 'new-post-link' %>
+<div class="pagination">
+  <%= link_to '< Prev', articles_path(page: @page - 1), class: 'pagination-link' if @page > 1 %>
+  <span class="page-info">Page <%= @page %> of <%= @total_pages %></span>
+  <%= link_to 'Next >', articles_path(page: @page + 1), class: 'pagination-link' if @page < @total_pages %>
+</div>
+
 
 <style>
   .blog-title {
     color: #00ff00;
     font-size: 2em;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #00ff00;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #00ff00;
     padding-bottom: 10px;
+    text-shadow: 0 0 5px #00ff00;
   }
-  .article-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
   .article-card {
-    background-color: #1a1a1a;
+    background-color: #0e0e0e;
     border: 1px solid #00ff00;
-    padding: 15px;
-    transition: transform 0.3s ease;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   .article-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
   }
-  .article-card h2 {
-    margin-top: 0;
+  .article-title {
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
   }
-  .article-card h2 a {
+  .article-title a {
     color: #00ff00;
     text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .article-title a:hover {
+    color: #66ff66;
   }
   .article-meta {
     color: #888;
     font-size: 0.9em;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
   }
   .article-excerpt {
-    color: #00ff00;
-    font-size: 0.9em;
+    color: #cccccc;
+    font-size: 1em;
     margin-bottom: 15px;
+    line-height: 1.6;
   }
   .article-actions {
-    margin-top: 15px;
     display: flex;
-    gap: 10px;
+    gap: 15px;
   }
   .action-link {
     color: #00ff00;
@@ -70,24 +85,52 @@
     background: none;
     border: none;
     cursor: pointer;
-    font-family: 'Source Code Pro', monospace;
-    font-size: 1em;
-    padding: 0;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    border: 1px solid #00ff00;
+    transition: background-color 0.3s, color 0.3s;
   }
   .action-link:hover {
-    text-decoration: underline;
+    background-color: #00ff00;
+    color: #0a0a0a;
   }
   .delete-button {
     color: #ff3333;
+    border-color: #ff3333;
   }
-  .new-post-link {
-    display: inline-block;
-    margin-top: 20px;
+  .delete-button:hover {
+    background-color: #ff3333;
+    color: #0a0a0a;
+  }
+  .pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pagination-link {
     color: #00ff00;
     text-decoration: none;
     border: 1px solid #00ff00;
-    padding: 10px 15px;
-    transition: background-color 0.3s;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  .pagination-link:hover {
+    background-color: #00ff00;
+    color: #0a0a0a;
+  }
+  .page-info {
+    color: #888;
+  }
+  .new-post-link {
+    display: inline-block;
+    margin-top: 30px;
+    color: #00ff00;
+    text-decoration: none;
+    border: 2px solid #00ff00;
+    padding: 10px 20px;
+    font-size: 1em;
+    transition: background-color 0.3s, color 0.3s;
   }
   .new-post-link:hover {
     background-color: #00ff00;
