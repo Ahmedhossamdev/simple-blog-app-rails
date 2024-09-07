@@ -1,0 +1,126 @@
+<h1 class="blog-title">Articles</h1>
+
+<ul class="article-list">
+  <% @articles.each do |article| %>
+    <li class="article-item">
+      <div class="article-content">
+        <strong class="article-title"><%= article.title %></strong>
+        <p class="article-meta">
+          Published on: <%= article.created_at.strftime("%B %d, %Y") %> |
+          Updated on: <%= article.updated_at.strftime("%B %d, %Y") %>
+        </p>
+        <p class="article-excerpt"><%= truncate(article.body, length: 100) %></p>
+        <a href="<%= article_path(article) %>" class="read-more">Read More</a>
+      </div>
+      <div class="article-views">
+        <i class="fas fa-eye"></i>
+        <span class="views-count"><%= article.views %></span>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to new_article_path, class: "new-article-button" do %>
+  <i class="fas fa-plus"></i>
+<% end %>
+
+<style>
+  .blog-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  .article-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .article-item {
+    width: 300px;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 20px;h
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .article-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  .article-content {
+    flex-grow: 1;
+  }
+  .article-title {
+    font-size: 1.5em;
+    color: #2980b9;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .article-meta {
+    font-size: 0.8em;
+    color: #7f8c8d;
+    margin-bottom: 10px;
+  }
+  .article-excerpt {
+    font-size: 0.9em;
+    color: #34495e;
+    margin-bottom: 15px;
+  }
+  .read-more {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #2980b9;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: 0.9em;
+  }
+  .read-more:hover {
+    background-color: #3498db;
+  }
+  .article-views {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    color: #7f8c8d;
+    font-size: 0.9em;
+    margin-top: 15px;
+  }
+  .fas {
+    margin-right: 5px;
+  }
+  .views-count {
+    font-weight: bold;
+  }
+  .new-article-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #27ae60;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 24px;
+    box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2);
+    transition: all 0.3s ease;
+  }
+  .new-article-button:hover {
+    background-color: #2ecc71;
+    transform: scale(1.1);
+    box-shadow: 0 6px 8px rgba(39, 174, 96, 0.3);
+  }
+</style>

@@ -1,0 +1,151 @@
+<h1 class="article-title"><%= @article.title %></h1>
+
+<p class="article-meta">
+  Published on: <%= @article.created_at.strftime("%B %d, %Y") %> |
+  Updated on: <%= @article.updated_at.strftime("%B %d, %Y") %>
+</p>
+
+<p class="article-body"><%= @article.body %></p>
+
+<div class="article-views">
+  <i class="fas fa-eye"></i>
+  <span class="views-count"><%= @article.views %></span>
+</div>
+
+<div class="comments-section">
+  <h2>Comments</h2>
+
+  <% if @article.comments.any? %>
+    <ul class="comments-list">
+      <% @article.comments.each do |comment| %>
+        <li class="comment">
+          <p class="comment-content"><%= comment.content %></p>
+          <p class="comment-meta">Posted by <%= comment.author %> on <%= comment.created_at.strftime("%B %d, %Y at %I:%M %p") %></p>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No comments yet. Be the first to comment!</p>
+  <% end %>
+
+  <h3>Add a comment</h3>
+  <%= form_with(model: [@article, @article.comments.build], local: true, class: "comment-form") do |f| %>
+    <div class="form-group">
+      <%= f.label :author %>
+      <%= f.text_field :author, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :content %>
+      <%= f.text_area :content, class: "form-control" %>
+    </div>
+
+    <%= f.submit "Post Comment", class: "btn submit-comment" %>
+  <% end %>
+</div>
+
+<a href="<%= articles_path %>" class="back-to-articles">Back to Articles</a>
+
+<style>
+  /* Add this to your existing styles */
+  .fas {
+    margin-right: 5px;
+  }
+  .article-title {
+    text-align: center;
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+  .article-meta {
+    text-align: center;
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .article-meta > * {
+    margin: 0 10px;
+  }
+  .article-body {
+    text-align: center;
+    font-size: 1.2em;
+    color: #34495e;
+    line-height: 1.6;
+    margin: 20px auto;
+    max-width: 800px;
+  }
+  .back-to-articles {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #2980b9;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  .back-to-articles:hover {
+    background-color: #1a5276;
+  }
+  .article-views {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7f8c8d;
+    font-size: 1.1em;
+    margin-top: 20px;
+  }
+  .views-count {
+    font-weight: bold;
+  }
+  .comments-section {
+    margin-top: 40px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+  }
+  .comments-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  .comment {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+  .comment-content {
+    margin-bottom: 5px;
+  }
+  .comment-meta {
+    font-size: 0.8em;
+    color: #7f8c8d;
+  }
+  .comment-form {
+    margin-top: 20px;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .submit-comment {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .submit-comment:hover {
+    background-color: #219a52;
+  }
+</style>
