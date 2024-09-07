@@ -3,6 +3,7 @@
 
   <%= render "form", article: @article %>
 
+
   <%= link_to '< Back', articles_path, class: "back-link" %>
 </div>
 
@@ -24,13 +25,14 @@
   .back-link {
     display: inline-block;
     margin-top: 20px;
-    color: #3498db;
+    color: #00ff00;
     text-decoration: none;
-    transition: color 0.3s;
-    font-size: 1.1em;
+    border: 1px solid #00ff00;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
   }
-
   .back-link:hover {
-    color: #2980b9;
+    background-color: #00ff00;
+    color: #0a0a0a;
   }
 </style>
