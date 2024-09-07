@@ -70,7 +70,7 @@ jobs:
           bundler-cache: true
 
       - name: Make bin/rails executable
-        run: git update-index --chmod=+x bin/rails
+        run: chmod +x bin/rails
 
       - name: Run tests
         env:
