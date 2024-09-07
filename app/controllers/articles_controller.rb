@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   def index
     @page = params[:page].to_i || 1
-    @per_page = 10
+    @per_page = 4
     @total_articles = Article.count
     @total_pages = (@total_articles.to_f / @per_page).ceil
     @articles = Article.order(created_at: :desc).offset((@page - 1) * @per_page).limit(@per_page)
