@@ -1,6 +1,12 @@
 class ArticlesController < ApplicationController
+  protect_from_forgery with: :null_session, only: [ :create ] # Be cautious with this in production!
+
   def index
-    @articles = Article.all.order(created_at: :desc)
+    @page = params[:page].to_i || 1
+    @per_page = 10
+    @total_articles = Article.count
+    @total_pages = (@total_articles.to_f / @per_page).ceil
+    @articles = Article.order(created_at: :desc).offset((@page - 1) * @per_page).limit(@per_page)
   end
 
 
@@ -16,10 +22,14 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
 
-    if @article.save
-      redirect_to article_path(@article)
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @article.save
+        format.html { redirect_to @article, notice: "Article was successfully created." }
+        format.json { render json: @article, status: :created, location: @article }
+      else
+        format.html { render :new }
+        format.json { render json: @article.errors, status: :unprocessable_entity }
+      end
     end
   end
 
