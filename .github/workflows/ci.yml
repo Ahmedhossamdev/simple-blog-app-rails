@@ -69,13 +69,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Ensure bin/rails is executable
-        run: chmod +x bin/rails
+      - name: Make bin/rails executable
+        run: git update-index --chmod=+x bin/rails
 
       - name: Run tests
         env:
           RAILS_ENV: test
-        run: bin/rails db:test:prepare test test:system
+        run: |
+          bin/rails db:test:prepare
+          bin/rails test
+          bin/rails test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
