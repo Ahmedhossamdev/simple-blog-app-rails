@@ -18,7 +18,9 @@
 
     <div class="field">
       <%= form.label :body %>
-      <%= form.text_area :body, class: 'form-input', rows: 10 %>
+      <%= puts "Rendering rich_text_area" %>
+      <%= form.rich_text_area :body, class: 'form-input', rows: 10 %>
+      <%= puts "Rich text area rendered" %>
     </div>
 
     <div class="actions">

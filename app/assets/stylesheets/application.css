@@ -12,4 +12,22 @@
  *
  *= require_tree .
  *= require_self
+ *= require actiontext
  */
+
+.trix-content {
+  color: #00ff00;
+}
+
+.trix-button-group {
+  border-color: #00ff00;
+}
+
+.trix-button {
+  color: #00ff00;
+}
+
+.trix-button:hover,
+.trix-button.trix-active {
+  background-color: #004d00;
+}

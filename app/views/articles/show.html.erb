@@ -5,12 +5,12 @@
     <span>Views: <%= @article.views %></span>
   </div>
   <div class="article-body">
-    <%= simple_format(@article.body) %>
+    <%=@article.body %>
   </div>
 </article>
 
 <section class="comments-section">
-  <h2>// Comments (<%= @article.comments.count %>)</h2>
+ <h2>Comments (<%= @article.comments.count %>)</h2>
 
   <% if @article.comments.any? %>
     <ul class="comments-list">

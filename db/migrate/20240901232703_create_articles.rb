@@ -6,5 +6,5 @@ class CreateArticles < ActiveRecord::Migration[7.2]
 
       t.timestamps
     end
-  end
+  endw
 end
