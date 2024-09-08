@@ -2,6 +2,8 @@ class ArticlesController < ApplicationController
   protect_from_forgery with: :null_session, only: [ :create, :update, :destroy ]
   before_action :set_article, only: [ :show, :edit, :update, :destroy ]
 
+  http_basic_authenticate_with name: "admin", password: "admin", except: [ :index, :show ]
+
   def index
     @page = params[:page].to_i.positive? ? params[:page].to_i : 1
     @per_page = params[:limit].to_i.positive? ? params[:limit].to_i : 10
