@@ -1,9 +1,14 @@
 <div id="<%= dom_id(comment) %>" class="comment">
-  <p class="comment-content"><strong><%= comment.commenter %>:</strong> <%= comment.body %></p>
-  <p class="comment-meta">
-    Posted on:
-    <%= comment.created_at&.strftime("%Y-%m-%d %H:%M:%S") || "Unknown date" %>
-  </p>
+  <div class="comment-content-wrapper">
+    <p class="comment-content"><strong><%= comment.commenter %>:</strong> <%= comment.body %></p>
+    <p class="comment-meta">
+      Posted on:
+      <%= comment.created_at&.strftime("%Y-%m-%d %H:%M:%S") || "Unknown date" %>
+    </p>
+  </div>
+  <div class="comment-actions">
+    <%= button_to 'Delete', [comment.article, comment], method: :delete, class: "delete-button", data: { confirm: 'Are you sure?' } %>
+  </div>
 </div>
 
 <style>
@@ -11,6 +16,12 @@
     border: 1px solid #333;
     padding: 10px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .comment-content-wrapper {
+    flex-grow: 1;
   }
   .comment-content {
     color: #00ff00;
@@ -18,5 +29,19 @@
   .comment-meta {
     color: #888;
     font-size: 0.9em;
+  }
+  .comment-actions {
+    margin-left: 10px;
+  }
+  .delete-button {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .delete-button:hover {
+    background-color: #d32f2f;
   }
 </style>
