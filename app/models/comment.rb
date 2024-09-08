@@ -2,9 +2,8 @@ class Comment < ApplicationRecord
   belongs_to :article
 
 
-  VALID_STATUSES = [ "public", "private", "archived" ]
+  include Visible
 
-  validates :status, inclusion: { in: VALID_STATUSES }
 
   validates :commenter, presence: true
   validates :body, presence: true
